@@ -21,7 +21,7 @@ def creer_nouvelle_liste(nom_liste):
 class TestCreationListe(unittest.TestCase):
     def test_creer_nouvelle_liste(self):
 
-        """   
+
         # Tester la création d'une nouvelle liste avec un nom valide
         with self.subTest(msg="Test avec un nom valide ! ! "):
             nom_liste = "MaListe"
@@ -34,13 +34,14 @@ class TestCreationListe(unittest.TestCase):
             nom_liste = "MaListe"
             with self.assertRaises(ValueError):
                 creer_nouvelle_liste(nom_liste)
-        """ 
 
+                
         # Tester la création d'une nouvelle liste avec un nom vide
         with self.subTest(msg="Test avec un nom vide ! ! "):
             nom_liste = ""
             with self.assertRaises(ValueError):
                 creer_nouvelle_liste(nom_liste)
+
 
 if __name__ == "__main__":
     unittest.main()
