@@ -27,14 +27,20 @@ class TestCreationListe(unittest.TestCase):
             nom_liste = "MaListe"
             creer_nouvelle_liste(nom_liste)
             self.assertTrue(os.path.exists(f"liste/{nom_liste}.txt"))
-        """ 
         
+
         # Tester la création d'une nouvelle liste avec un nom existant
         with self.subTest(msg="Test avec un nom existant ! ! "):
             nom_liste = "MaListe"
             with self.assertRaises(ValueError):
                 creer_nouvelle_liste(nom_liste)
+        """ 
 
+        # Tester la création d'une nouvelle liste avec un nom vide
+        with self.subTest(msg="Test avec un nom vide ! ! "):
+            nom_liste = ""
+            with self.assertRaises(ValueError):
+                creer_nouvelle_liste(nom_liste)
 
 if __name__ == "__main__":
     unittest.main()
