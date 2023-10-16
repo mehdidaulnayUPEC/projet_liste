@@ -20,7 +20,7 @@ def creer_nouvelle_liste(nom_liste):
 
 class TestCreationListe(unittest.TestCase):
     def test_creer_nouvelle_liste(self):
-        
+
         # Tester la création d'une nouvelle liste avec un nom valide
         with self.subTest(msg="Test avec un nom valide ! ! "):
             nom_liste = "MaListe"
