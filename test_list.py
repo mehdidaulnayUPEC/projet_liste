@@ -18,5 +18,15 @@ def creer_nouvelle_liste(nom_liste):
         print(f"La liste '{nom_liste}' a été crée dans le répertoire 'liste' ! ")
 
 
+class TestCreationListe(unittest.TestCase):
+    def test_creer_nouvelle_liste(self):
+        
+        # Tester la création d'une nouvelle liste avec un nom valide
+        with self.subTest(msg="Test avec un nom valide ! ! "):
+            nom_liste = "MaListe"
+            creer_nouvelle_liste(nom_liste)
+            self.assertTrue(os.path.exists(f"liste/{nom_liste}.txt"))
+
+
 if __name__ == "__main__":
     unittest.main()
