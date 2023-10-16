@@ -14,6 +14,28 @@ Menu principal
   [E]    Modifier une Liste
   [Q]    Quitter le programme
 ****************************************""")
+    
+def creer_nouvelle_liste():
+    # Crée le répertoire "liste" s'il n'existe pas
+    if not os.path.exists("liste"):
+        os.mkdir("liste")
+
+    while True:
+        nom_liste = input("Entrez le nom de la nouvelle liste : ").strip() #strip permet de supprimer les espaces inutiles
+
+        if not nom_liste:
+            print("Le Nom ne doit pas etre vide ! ! ! \n Veuillez saisir un nom. \n")
+        else:
+            liste_path = os.path.join("liste", f"{nom_liste}.txt")
+
+            # Vérifier si la liste existe déjà
+            if os.path.exists(liste_path):
+                print(f"La liste '{nom_liste}' existe déjà.")
+            else:
+                # Créer un fichier pour la nouvelle liste
+                with open(liste_path, "w") as fichier_liste:
+                    print(f"La liste '{nom_liste}' a été créée dans le répertoire 'liste'.")
+                break # sortir de la boucle une fois validé
 
 
 if __name__ == "__main__":
