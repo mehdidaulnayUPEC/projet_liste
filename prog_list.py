@@ -45,12 +45,36 @@ else:
     print(f"Le fichier '{nom_liste}.txt' n'a pas été créé.")
     
 
-def liste_existe_deja(nom_liste):
-    liste_path = os.path.join("liste", f"{nom_liste}.txt")
-    return os.path.exists(liste_path)
+
 
 #fin
 
+#Mehdi modifier contenu d'une liste existante
+
+def modifier_liste(nom_liste):
+    liste_path = os.path.join("liste", f"{nom_liste}.txt")
+
+    if not os.path.exists(liste_path):
+        print(f"La liste '{nom_liste}' n'existe pas.")
+        return
+
+    print(f"Contenu actuel de la liste '{nom_liste}':")
+
+    # Lire le contenu actuel du fichier
+    with open(liste_path, "r") as fichier_liste:
+        contenu = fichier_liste.read()
+        print(contenu)
+
+    # Demander à l'utilisateur de saisir la modification
+    nouveau_contenu = input(f"Entrez la modification pour la liste '{nom_liste}': ")
+
+    # Écrire le nouveau contenu dans le fichier
+    with open(liste_path, "w") as fichier_liste:
+        fichier_liste.write(nouveau_contenu)
+
+    print(f"La liste '{nom_liste}' a été modifiée avec succès.")
+
+#fin
 
 
 if __name__ == "__main__":
