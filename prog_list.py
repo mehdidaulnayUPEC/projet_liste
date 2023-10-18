@@ -38,6 +38,21 @@ def creer_nouvelle_liste():
                 break # sortir de la boucle une fois validé
 
 
+#Mehdi verifier exstance du fichier 
+if os.path.exists(liste_path):
+    print(f"Le fichier '{nom_liste}.txt' a été créé avec succès.")
+else:
+    print(f"Le fichier '{nom_liste}.txt' n'a pas été créé.")
+    
+
+def liste_existe_deja(nom_liste):
+    liste_path = os.path.join("liste", f"{nom_liste}.txt")
+    return os.path.exists(liste_path)
+
+#fin
+
+
+
 if __name__ == "__main__":
     while True:
         affiche_menu()  # Afficher le menu

@@ -16,6 +16,14 @@ def creer_nouvelle_liste(nom_liste):
 
     with open(liste_path, "w") as fichier_liste:
         print(f"La liste '{nom_liste}' a été crée dans le répertoire 'liste' ! ")
+        
+#verifier existance fichier de la nvl liste
+class TestCreationListe(unittest.TestCase):
+    def test_verifier_fichier_cree(self):
+        nom_liste = "MaListe"
+        creer_nouvelle_liste(nom_liste)
+        liste_path = os.path.join("liste", f"{nom_liste}.txt")
+        self.assertTrue(os.path.exists(liste_path), f"Le fichier '{nom_liste}.txt' a été créé avec succès.")
 
 
 class TestCreationListe(unittest.TestCase):
