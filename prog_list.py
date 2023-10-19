@@ -38,28 +38,35 @@ def creer_nouvelle_liste():
                 break # sortir de la boucle une fois validé
 
 
-def modifier_liste(nom_liste):
-    liste_path = os.path.join("liste", f"{nom_liste}.txt")
+def modifier_liste():
+    if os.path.exists("liste"):
+        nom_liste = input("Quelle liste voulez-vous modifier : ").strip() #strip permet de supprimer les espaces inutiles
+        liste_path = os.path.join("liste", f"{nom_liste}.txt")
 
-    if not os.path.exists(liste_path):
-        print(f"La liste '{nom_liste}' n'existe pas.")
-        return
+        if os.path.exists(liste_path):
+            print(f"Contenu actuel de la liste '{nom_liste}' :\n ")
 
-    print(f"Contenu actuel de la liste '{nom_liste}':")
+            # Lire le contenu actuel du fichier
+            with open(liste_path, "r") as fichier_liste:
+                    contenu = fichier_liste.read()
+                    print(contenu)
 
-    # Lire le contenu actuel du fichier
-    with open(liste_path, "r") as fichier_liste:
-        contenu = fichier_liste.read()
-        print(contenu)
+            # Demander à l'utilisateur de saisir la modification
+            nouveau_contenu = input(f"Entrez la modification pour la liste '{nom_liste}': \n")
 
-    # Demander à l'utilisateur de saisir la modification
-    nouveau_contenu = input(f"Entrez la modification pour la liste '{nom_liste}': ")
+            # Écrire le nouveau contenu dans le fichier
+            with open(liste_path, "w") as fichier_liste:
+                fichier_liste.write(nouveau_contenu)
 
-    # Écrire le nouveau contenu dans le fichier
-    with open(liste_path, "w") as fichier_liste:
-        fichier_liste.write(nouveau_contenu)
+            print(f"Le contenu de la liste '{nom_liste}' a été modifiée avec succès.")
 
-    print(f"La liste '{nom_liste}' a été modifiée avec succès.")
+        else :
+            print(f"La liste '{nom_liste}' n'existe pas. Vous devez d'abord créer des fichiers.")
+
+    else :
+        print("Pour modifier, il faut d'abord créer des fichiers.")
+    
+    
 
 
 def supprimer_liste():
@@ -68,7 +75,7 @@ def supprimer_liste():
         liste_path = os.path.join("liste", f"{nom_liste}.txt")
 
         if os.path.exists(liste_path): # Vérifie si le fichier de la liste existe
-            reponse = input(f"La liste '{nom_liste}' existe déjà. Voulez-vous la supprimer (Oui/Non) ? ").strip().lower() # Demande à l'utilisateur s'il veut supprimer la liste
+            reponse = input(f"Voulez-vous supprimer le fichier '{nom_liste}'?\n (Oui/Non)  ").strip().lower() # Demande à l'utilisateur s'il veut supprimer la liste
             
             if reponse == "oui":
                 # Supprimer le fichier de la liste
