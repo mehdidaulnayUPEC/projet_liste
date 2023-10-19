@@ -40,23 +40,29 @@ def creer_nouvelle_liste():
 
 
 def afficher_liste():
-    success = False
+    
     if os.path.exists("liste"):
-        nom_liste = input("Quelle liste voulez-vous afficher : ").strip()
-        liste_path = os.path.join("liste", f"{nom_liste}.txt")
+         # Listez les fichiers disponibles dans le répertoire "liste"
+        listes_disponibles = [fichier for fichier in os.listdir("liste") if fichier.endswith(".txt")]
+        
+        if not listes_disponibles:
+            print("Aucune liste n'est disponible.")
+        else:
+            print("Listes disponibles :")
+            for liste in listes_disponibles:
+                print(liste)
 
+            nom_liste = input("Quelle liste voulez-vous afficher : ").strip()
+            liste_path = os.path.join("liste", f"{nom_liste}.txt")
         try:
             with open(liste_path, "r") as fichier_liste:
                 contenu = fichier_liste.read()
                 print(contenu)
-                success = True
+                
         except FileNotFoundError:
             print(f"La liste '{nom_liste}' n'existe pas.")
     else:
         print("Le répertoire 'liste' n'existe pas.")
-        success = False
-
-    return success
 
 
 def modifier_liste():
