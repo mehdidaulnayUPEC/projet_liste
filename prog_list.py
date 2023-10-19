@@ -38,6 +38,7 @@ def creer_nouvelle_liste():
                 break # sortir de la boucle une fois validé
 
 
+<<<<<<< HEAD
 #Mehdi verifier exstance du fichier 
 if os.path.exists(liste_path):
     print(f"Le fichier '{nom_liste}.txt' a été créé avec succès.")
@@ -75,6 +76,28 @@ def modifier_liste(nom_liste):
     print(f"La liste '{nom_liste}' a été modifiée avec succès.")
 
 #fin
+=======
+def supprimer_liste():
+    if os.path.exists("liste"):
+        nom_liste = input("Quelle liste voulez-vous supprimer : ").strip() #strip permet de supprimer les espaces inutiles
+        liste_path = os.path.join("liste", f"{nom_liste}.txt")
+
+        if os.path.exists(liste_path): # Vérifie si le fichier de la liste existe
+            reponse = input(f"La liste '{nom_liste}' existe déjà. Voulez-vous la supprimer (Oui/Non) ? ").strip().lower() # Demande à l'utilisateur s'il veut supprimer la liste
+            
+            if reponse == "oui":
+                # Supprimer le fichier de la liste
+                os.remove(liste_path)
+                print(f"La liste '{nom_liste}' a été supprimée.")
+            else:
+                print ("La saisie n'est pas valide")
+
+        else:
+            print ("Le fichier dans le répertoire liste n'existe pas.")
+
+    else :
+        print ("Le répertoire des listes n'existes pas, Vous devez creer une liste au préalable")
+>>>>>>> 7120b2d (Supprimer les listes)
 
 
 if __name__ == "__main__":
@@ -87,8 +110,7 @@ if __name__ == "__main__":
             # Appeler la fonction pour afficher une liste
             pass  # Remplacez "pass" par le code approprié
         elif choix == 'S':
-            # Appeler la fonction pour supprimer une liste
-            pass  # Remplacez "pass" par le code approprié
+            supprimer_liste() #Appeler la fonction pour supprimer une liste
         elif choix == 'E':
             # Appeler la fonction pour modifier une liste
             pass  # Remplacez "pass" par le code approprié
