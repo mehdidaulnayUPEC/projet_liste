@@ -15,6 +15,7 @@ Menu principal
   [Q]    Quitter le programme
 ****************************************""")
     
+
 def creer_nouvelle_liste():
     # Crée le répertoire "liste" s'il n'existe pas
     if not os.path.exists("liste"):
@@ -81,9 +82,6 @@ def modifier_liste(nom_liste):
     else :
         print(f"La liste '{nom_liste}' n'existe pas. Vous devez d'abord créer des fichiers.")
 
-    
-    
-
 
 def supprimer_liste():
     if os.path.exists("liste"):
@@ -105,6 +103,7 @@ def supprimer_liste():
 
     else :
         print ("Le répertoire des listes n'existes pas, Vous devez creer une liste au préalable")
+
 
 if __name__ == "__main__":
     while True:
