@@ -58,6 +58,7 @@ def afficher_liste():
 
     return success
 
+
 def modifier_liste():
      if os.path.exists("liste"):
          nom_liste = input("Quelle liste voulez-vous modifier : ").strip() #strip permet de supprimer les espaces inutiles
