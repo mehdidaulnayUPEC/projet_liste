@@ -50,7 +50,8 @@ def afficher_liste():
         else:
             print("Listes disponibles :")
             for liste in listes_disponibles:
-                print(liste)
+                nom_base, _ = os.path.splitext(liste)
+                print(nom_base)
 
             nom_liste = input("Quelle liste voulez-vous afficher : ").strip()
             liste_path = os.path.join("liste", f"{nom_liste}.txt")
