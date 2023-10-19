@@ -87,7 +87,6 @@ def modifier_liste():
      else :
          print("Pour modifier, il faut d'abord créer des fichiers.")
 
-Ò
 
 def supprimer_liste():
     if os.path.exists("liste"):
@@ -119,8 +118,6 @@ if __name__ == "__main__":
             creer_nouvelle_liste()  #Appeler la fonction pour créer une nouvelle liste
         elif choix == 'A':
             afficher_liste() # Appeler la fonction pour afficher une liste
-            # Appeler la fonction pour afficher une liste
-            pass  # Remplacez "pass" par le code approprié
         elif choix == 'S':
             supprimer_liste() #Appeler la fonction pour supprimer une liste
         elif choix == 'E':
