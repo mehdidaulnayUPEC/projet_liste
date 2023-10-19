@@ -38,6 +38,26 @@ def creer_nouvelle_liste():
                 break # sortir de la boucle une fois validé
 
 
+def afficher_liste():
+    success = False
+    if os.path.exists("liste"):
+        nom_liste = input("Quelle liste voulez-vous afficher : ").strip()
+        liste_path = os.path.join("liste", f"{nom_liste}.txt")
+
+        try:
+            with open(liste_path, "r") as fichier_liste:
+                contenu = fichier_liste.read()
+                print(contenu)
+                success = True
+        except FileNotFoundError:
+            print(f"La liste '{nom_liste}' n'existe pas.")
+    else:
+        print("Le répertoire 'liste' n'existe pas.")
+        success = False
+
+    return success
+
+
 def modifier_liste(nom_liste):
     liste_path = os.path.join("liste", f"{nom_liste}.txt")
 
@@ -90,6 +110,7 @@ if __name__ == "__main__":
         if choix == 'N':
             creer_nouvelle_liste()  #Appeler la fonction pour créer une nouvelle liste
         elif choix == 'A':
+            afficher_liste() # Appeler la fonction pour afficher une liste
             # Appeler la fonction pour afficher une liste
             pass  # Remplacez "pass" par le code approprié
         elif choix == 'S':
