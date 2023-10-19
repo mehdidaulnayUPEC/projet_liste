@@ -12,6 +12,7 @@ Menu principal
   [N]    Nouvelle Liste
   [S]    Supprimer une Liste
   [E]    Modifier une Liste
+  [C]    Rajouter du contenue à une Liste
   [Q]    Quitter le programme
 ****************************************""")
     
@@ -63,7 +64,7 @@ def afficher_liste():
         print("Le répertoire 'liste' n'existe pas.")
 
 
-def modifier_liste():
+def rajouter_liste():
     if os.path.exists("liste"):
         # Afficher les listes disponibles
         listes_disponibles = [fichier for fichier in os.listdir("liste") if fichier.endswith(".txt")]
@@ -109,6 +110,10 @@ def modifier_liste():
         print("Le répertoire 'liste' n'existe pas.")
 
 
+def modifier_liste():
+    pass
+
+
 def supprimer_liste():
     if os.path.exists("liste"):
         print("Voici les listes qui peuvent etre supprimer : ")
@@ -150,6 +155,8 @@ if __name__ == "__main__":
             supprimer_liste() #Appeler la fonction pour supprimer une liste
         elif choix == 'E':
             modifier_liste()  #Appeler la fonction pour modifier une liste
+        elif choix == 'C':
+            rajouter_liste()  #Appeler la fonction pour ajouter du contenu à une liste
         elif choix == 'Q':
             break  # Quitter le programme
         else:
