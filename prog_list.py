@@ -65,7 +65,7 @@ def modifier_liste():
          liste_path = os.path.join("liste", f"{nom_liste}.txt")
 
          if os.path.exists(liste_path):
-             print(f"Contenu actuel de la liste '{nom_liste}' :\n ")
+             print(f"Contenu actuel de la liste '{nom_liste}' : \n ")
 
              # Lire le contenu actuel du fichier
              with open(liste_path, "r") as fichier_liste:
