@@ -40,11 +40,10 @@ def creer_nouvelle_liste():
 
 
 def afficher_liste():
-    
     if os.path.exists("liste"):
-         # Listez les fichiers disponibles dans le répertoire "liste"
+        # Listez les fichiers disponibles dans le répertoire "liste"
         listes_disponibles = [fichier for fichier in os.listdir("liste") if fichier.endswith(".txt")]
-        
+
         if not listes_disponibles:
             print("Aucune liste n'est disponible.")
         else:
@@ -54,66 +53,89 @@ def afficher_liste():
 
             nom_liste = input("Quelle liste voulez-vous afficher : ").strip()
             liste_path = os.path.join("liste", f"{nom_liste}.txt")
-        try:
-            with open(liste_path, "r") as fichier_liste:
-                contenu = fichier_liste.read()
-                print(contenu)
-                
-        except FileNotFoundError:
-            print(f"La liste '{nom_liste}' n'existe pas.")
+            try:
+                with open(liste_path, "r") as fichier_liste:
+                    contenu = fichier_liste.read()
+                    print(contenu)
+            except FileNotFoundError:
+                print(f"La liste '{nom_liste}' n'existe pas.")
     else:
         print("Le répertoire 'liste' n'existe pas.")
 
 
 def modifier_liste():
-     if os.path.exists("liste"):
-         nom_liste = input("Quelle liste voulez-vous modifier : ").strip() #strip permet de supprimer les espaces inutiles
-         liste_path = os.path.join("liste", f"{nom_liste}.txt")
+    if os.path.exists("liste"):
+        # Afficher les listes disponibles
+        listes_disponibles = [fichier for fichier in os.listdir("liste") if fichier.endswith(".txt")]
 
-         if os.path.exists(liste_path):
-             print(f"Contenu actuel de la liste '{nom_liste}' : \n ")
+        if not listes_disponibles:
+            print("Aucune liste n'est disponible.")
+        else:
+            print("Voici les listes que vous pouvez modifier :")
+            for liste in listes_disponibles:
+                print(liste)
 
-             # Lire le contenu actuel du fichier
-             with open(liste_path, "r") as fichier_liste:
-                     contenu = fichier_liste.read()
-                     print(contenu)
+        nom_liste = input("Quelle liste voulez-vous modifier : ").strip()
+        liste_path = os.path.join("liste", f"{nom_liste}.txt")
 
-             # Demander à l'utilisateur de saisir la modification
-             nouveau_contenu = input(f"Entrez la modification pour la liste '{nom_liste}': \n")
+        if os.path.exists(liste_path):
+            print(f"Contenu actuel de la liste '{nom_liste}' : \n ")
 
-             # Écrire le nouveau contenu dans le fichier
-             with open(liste_path, "w") as fichier_liste:
-                 fichier_liste.write(nouveau_contenu)
+            # Lire le contenu actuel du fichier
+            with open(liste_path, "r") as fichier_liste:
+                contenu = fichier_liste.read()
+                print(contenu)
 
-             print(f"Le contenu de la liste '{nom_liste}' a été modifiée avec succès.")
+            # Demander à l'utilisateur de saisir la modification
+            nouvelle_entree = input(f"Entrez la nouvelle entrée pour la liste '{nom_liste}': \n")
 
-         else :
-             print(f"La liste '{nom_liste}' n'existe pas. Vous devez d'abord créer des fichiers.")
+            # Vérifier si la nouvelle entrée n'existe pas déjà dans le contenu
+            if nouvelle_entree not in contenu:
+                # Ajouter la nouvelle entrée au contenu existant
+                contenu += "\n" + nouvelle_entree  # Ajouter un saut de ligne pour séparer les entrées
 
-     else :
-         print("Pour modifier, il faut d'abord créer des fichiers.")
+                # Écrire le nouveau contenu dans le fichier en mode append
+                with open(liste_path, "a") as fichier_liste:
+                    fichier_liste.write("\n" + nouvelle_entree)
+
+                print(f"La nouvelle entrée a été ajoutée à la liste '{nom_liste}' avec succès.")
+            else:
+                print("Cette entrée existe déjà dans la liste.")
+
+        else:
+            print(f"La liste '{nom_liste}' n'existe pas. Vous devez d'abord créer des fichiers.")
+
+    else:
+        print("Le répertoire 'liste' n'existe pas.")
 
 
 def supprimer_liste():
     if os.path.exists("liste"):
-        nom_liste = input("Quelle liste voulez-vous supprimer : ").strip() #strip permet de supprimer les espaces inutiles
-        liste_path = os.path.join("liste", f"{nom_liste}.txt")
+        print("Voici les listes qui peuvent etre supprimer : ")
+        listes_disponibles = [fichier for fichier in os.listdir("liste") if fichier.endswith(".txt")]
 
-        if os.path.exists(liste_path): # Vérifie si le fichier de la liste existe
-            reponse = input(f"Voulez-vous supprimer le fichier '{nom_liste}'?\n (Oui/Non)  ").strip().lower() # Demande à l'utilisateur s'il veut supprimer la liste
-            
-            if reponse == "oui":
-                # Supprimer le fichier de la liste
-                os.remove(liste_path)
-                print(f"La liste '{nom_liste}' a été supprimée.")
-            else:
-                print ("La saisie n'est pas valide")
-
+        if not listes_disponibles:
+            print("Aucune liste n'est disponible.")
         else:
-            print ("Le fichier dans le répertoire liste n'existe pas.")
+            for liste in listes_disponibles:
+                print(liste)
 
-    else :
-        print ("Le répertoire des listes n'existes pas, Vous devez creer une liste au préalable")
+            nom_liste = input("Quelle liste voulez-vous supprimer : ").strip()
+            liste_path = os.path.join("liste", f"{nom_liste}.txt")
+
+            if os.path.exists(liste_path):
+                reponse = input(f"Voulez-vous supprimer le fichier '{nom_liste}'?\n (Oui/Non)  ").strip().lower()
+
+                if reponse == "oui":
+                    os.remove(liste_path)
+                    print(f"La liste '{nom_liste}' a été supprimée.")
+                else:
+                    print("La saisie n'est pas valide")
+
+            else:
+                print(f"Le fichier '{nom_liste}' dans le répertoire 'liste' n'existe pas.")
+    else:
+        print("Le répertoire 'liste' n'existe pas. Vous devez d'abord créer des fichiers.")
 
 
 if __name__ == "__main__":
