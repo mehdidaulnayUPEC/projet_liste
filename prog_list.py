@@ -111,8 +111,68 @@ def rajouter_liste():
         print("Le répertoire 'liste' n'existe pas.")
 
 
+
+
+    
+import os
+
+def texte_en_vert(texte):
+    return f"\033[32m{texte}\033[0m"
+
 def modifier_liste():
-    pass
+    if os.path.exists("liste"):
+        print("Voici les listes que vous pouvez modifier :")
+        listes_disponibles = [fichier for fichier in os.listdir("liste") if fichier.endswith(".txt")]
+
+        if not listes_disponibles:
+            print("Aucune liste n'est disponible.")
+        else:
+            for liste in listes_disponibles:
+                print(liste)
+
+            nom_liste = input("Quelle liste voulez-vous modifier : ").strip()
+            liste_path = os.path.join("liste", f"{nom_liste}.txt")
+
+            if os.path.exists(liste_path):
+                print(f"Contenu actuel de la liste '{nom_liste}' : \n ")
+
+                with open(liste_path, "r") as fichier_liste:
+                    contenu = fichier_liste.read()
+                    print(contenu)
+
+                choix = input("Que souhaitez-vous faire?\n[A] Supprimer un élément\n[M] Mettre en Vert un élément\nChoisissez [A] ou [M]: ").strip().upper()
+
+                if choix == 'A':
+                    element_a_supprimer = input("Entrez l'élément que vous souhaitez supprimer de la liste : ")
+                    if element_a_supprimer in contenu:
+                        contenu = contenu.replace(element_a_supprimer, '')
+                        with open(liste_path, "w") as fichier_liste:
+                            fichier_liste.write(contenu)
+                        print(f"L'élément '{element_a_supprimer}' a été supprimé de la liste '{nom_liste}' avec succès.")
+                    else:
+                        print(f"L'élément '{element_a_supprimer}' n'existe pas dans la liste.")
+                elif choix == 'M':
+                    num_ligne = int(input("Entrez le numéro de la ligne à mettre en vert : "))
+                    if 1 <= num_ligne <= len(contenu.split('\n')):
+                        lignes = contenu.split('\n')
+                        lignes[num_ligne - 1] = texte_en_vert(lignes[num_ligne - 1])
+                        contenu = '\n'.join(lignes)
+                        with open(liste_path, "w") as fichier_liste:
+                            fichier_liste.write(contenu)
+                        print(f"La ligne {num_ligne} a été mise en vert dans la liste '{nom_liste}' avec succès.")
+                    else:
+                        print("Numéro de ligne invalide.")
+                else:
+                    print("Option invalide. Veuillez choisir [A] ou [M].")
+            else:
+                print(f"Le fichier '{nom_liste}' dans le répertoire 'liste' n'existe pas.")
+    else:
+        print("Le répertoire 'liste' n'existe pas. Vous devez d'abord créer des fichiers.")
+
+
+    
+
+
 
 
 def supprimer_liste():
