@@ -147,17 +147,23 @@ def modifier_liste():
                         print(f"L'élément '{element_a_supprimer}' a été supprimé de la liste '{nom_liste}' avec succès.")
                     else:
                         print(f"L'élément '{element_a_supprimer}' n'existe pas dans la liste.")
+
                 elif choix == 'M':
-                    num_ligne = int(input("Entrez le numéro de la ligne à mettre en vert : "))
-                    if 1 <= num_ligne <= len(contenu.split('\n')):
-                        lignes = contenu.split('\n')
-                        lignes[num_ligne] = texte_en_vert(lignes[num_ligne])
-                        contenu = '\n'.join(lignes)
-                        with open(liste_path, "w") as fichier_liste:
-                            fichier_liste.write(contenu)
-                        print(f"La ligne {num_ligne} a été mise en vert dans la liste '{nom_liste}' avec succès.")
+                    num_ligne = input("Entrez le numéro de la ligne à mettre en vert : ")
+                    if num_ligne.isdigit():
+                        num_ligne = int(num_ligne)
+                        if 1 <= num_ligne <= len(contenu.split('\n')):
+                            lignes = contenu.split('\n')
+                            lignes[num_ligne - 1] = texte_en_vert(lignes[num_ligne - 1])
+                            contenu = '\n'.join(lignes)
+                            with open(liste_path, "w") as fichier_liste:
+                                fichier_liste.write(contenu)
+                            print(f"La ligne {num_ligne} a été mise en vert dans la liste '{nom_liste}' avec succès.")
+                        else:
+                            print("Numéro de ligne invalide.")
                     else:
-                        print("Numéro de ligne invalide.")
+                        print("Veuillez entrer un numéro de ligne valide.")
+
                 else:
                     print("Option invalide. Veuillez choisir [A] ou [M].")
             else:
