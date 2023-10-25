@@ -112,10 +112,6 @@ def rajouter_liste():
 
 
 
-
-    
-import os
-
 def texte_en_vert(texte):
     return f"\033[32m{texte}\033[0m"
 
@@ -155,7 +151,7 @@ def modifier_liste():
                     num_ligne = int(input("Entrez le numéro de la ligne à mettre en vert : "))
                     if 1 <= num_ligne <= len(contenu.split('\n')):
                         lignes = contenu.split('\n')
-                        lignes[num_ligne - 1] = texte_en_vert(lignes[num_ligne - 1])
+                        lignes[num_ligne] = texte_en_vert(lignes[num_ligne])
                         contenu = '\n'.join(lignes)
                         with open(liste_path, "w") as fichier_liste:
                             fichier_liste.write(contenu)
@@ -168,11 +164,6 @@ def modifier_liste():
                 print(f"Le fichier '{nom_liste}' dans le répertoire 'liste' n'existe pas.")
     else:
         print("Le répertoire 'liste' n'existe pas. Vous devez d'abord créer des fichiers.")
-
-
-    
-
-
 
 
 def supprimer_liste():
