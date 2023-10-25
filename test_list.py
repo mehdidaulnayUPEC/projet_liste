@@ -49,6 +49,18 @@ def afficher_liste(nom_liste):
             print(contenu)
     else:
         raise FileNotFoundError(f"La liste '{nom_liste}' n'existe pas.")
+def afficher_listes_disponibles():
+    if os.path.exists("liste"):
+        listes_disponibles = [fichier for fichier in os.listdir("liste") if fichier.endswith(".txt")]
+        if not listes_disponibles:
+            print("Aucune liste n'est disponible.")
+        else:
+            print("Listes disponibles :")
+            for liste in listes_disponibles:
+                nom_base, _ = os.path.splitext(liste)
+                print(nom_base)
+    else:
+        print("Le répertoire 'liste' n'existe pas.")
 
 
 
