@@ -1,5 +1,7 @@
 import os
 import unittest
+import sys
+from io import StringIO
 
 
 def creer_nouvelle_liste(nom_liste):
@@ -37,6 +39,17 @@ class TestCreationListe(unittest.TestCase):
             nom_liste = ""
             with self.assertRaises(ValueError):
                 creer_nouvelle_liste(nom_liste)
+
+
+def afficher_liste(nom_liste):
+    liste_path = os.path.join("liste", f"{nom_liste}.txt")
+    if os.path.exists(liste_path):
+        with open(liste_path, "r") as fichier_liste:
+            contenu = fichier_liste.read()
+            print(contenu)
+    else:
+        raise FileNotFoundError(f"La liste '{nom_liste}' n'existe pas.")
+
 
 
 
