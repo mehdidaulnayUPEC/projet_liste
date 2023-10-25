@@ -62,6 +62,12 @@ def afficher_listes_disponibles():
     else:
         print("Le répertoire 'liste' n'existe pas.")
 
+class TestAffichageListe(unittest.TestCase):
+    def setUp(self):
+        # Rediriger la sortie standard pour capturer l'affichage
+        self.stdout_backup = sys.stdout
+        self.captured_output = StringIO()
+        sys.stdout = self.captured_output
 
 
 
