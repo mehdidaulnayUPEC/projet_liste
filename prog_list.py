@@ -26,7 +26,7 @@ def creer_nouvelle_liste():
         nom_liste = input("Entrez le nom de la nouvelle liste : ").strip() #strip permet de supprimer les espaces inutiles
 
         if not nom_liste:
-            print("Le Nom ne doit pas etre vide ! ! ! \n Veuillez saisir un nom. \n")
+            print("Le Nom ne doit pas etre vide ! ! ! \nVeuillez saisir un nom. \n")
         else:
             liste_path = os.path.join("liste", f"{nom_liste}.txt")
 
@@ -75,7 +75,8 @@ def rajouter_liste():
         else:
             print("Voici les listes que vous pouvez modifier :")
             for liste in listes_disponibles:
-                print(liste)
+                nom_base, _ = os.path.splitext(liste)
+                print(nom_base)
 
         nom_liste = input("Quelle liste voulez-vous modifier : ").strip()
         liste_path = os.path.join("liste", f"{nom_liste}.txt")
@@ -117,20 +118,21 @@ def texte_en_vert(texte):
 
 def modifier_liste():
     if os.path.exists("liste"):
-        print("Voici les listes que vous pouvez modifier :")
         listes_disponibles = [fichier for fichier in os.listdir("liste") if fichier.endswith(".txt")]
 
         if not listes_disponibles:
             print("Aucune liste n'est disponible.")
         else:
+            print("Voici les listes que vous pouvez modifier :")
             for liste in listes_disponibles:
-                print(liste)
+                nom_base, _ = os.path.splitext(liste)
+                print(nom_base)
 
-            nom_liste = input("Quelle liste voulez-vous modifier : ").strip()
+            nom_liste = input("Quelle liste voulez-vous modifier :").strip()
             liste_path = os.path.join("liste", f"{nom_liste}.txt")
 
             if os.path.exists(liste_path):
-                print(f"Contenu actuel de la liste '{nom_liste}' : \n ")
+                print(f"Contenu actuel de la liste '{nom_liste}' : \n")
 
                 with open(liste_path, "r") as fichier_liste:
                     contenu = fichier_liste.read()
@@ -180,8 +182,10 @@ def supprimer_liste():
         if not listes_disponibles:
             print("Aucune liste n'est disponible.")
         else:
+            print("Voici les listes que vous pouvez modifier :")
             for liste in listes_disponibles:
-                print(liste)
+                nom_base, _ = os.path.splitext(liste)
+                print(nom_base)
 
             nom_liste = input("Quelle liste voulez-vous supprimer : ").strip()
             liste_path = os.path.join("liste", f"{nom_liste}.txt")
@@ -218,4 +222,4 @@ if __name__ == "__main__":
         elif choix == 'Q':
             break  # Quitter le programme
         else:
-            print("Option invalide. Veuillez choisir une option valide.")
+            print("Option invalide ! ! ! \nVeuillez choisir une option valide.")
