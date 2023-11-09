@@ -176,13 +176,12 @@ def modifier_liste():
 
 def supprimer_liste():
     if os.path.exists("liste"):
-        print("Voici les listes qui peuvent etre supprimer : ")
         listes_disponibles = [fichier for fichier in os.listdir("liste") if fichier.endswith(".txt")]
 
         if not listes_disponibles:
             print("Aucune liste n'est disponible.")
         else:
-            print("Voici les listes que vous pouvez modifier :")
+            print("Voici les listes qui peuvent etre supprimer : ")
             for liste in listes_disponibles:
                 nom_base, _ = os.path.splitext(liste)
                 print(nom_base)
