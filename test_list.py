@@ -19,6 +19,7 @@ def creer_nouvelle_liste(nom_liste):
     with open(liste_path, "w") as fichier_liste:
         print(f"La liste '{nom_liste}' a été crée dans le répertoire 'liste' ! ")
 
+
 class TestCreationListe(unittest.TestCase):
     def test_creer_nouvelle_liste(self):
         
@@ -39,35 +40,6 @@ class TestCreationListe(unittest.TestCase):
             nom_liste = ""
             with self.assertRaises(ValueError):
                 creer_nouvelle_liste(nom_liste)
-
-
-def afficher_liste(nom_liste):
-    liste_path = os.path.join("liste", f"{nom_liste}.txt")
-    if os.path.exists(liste_path):
-        with open(liste_path, "r") as fichier_liste:
-            contenu = fichier_liste.read()
-            print(contenu)
-    else:
-        raise FileNotFoundError(f"La liste '{nom_liste}' n'existe pas.")
-def afficher_listes_disponibles():
-    if os.path.exists("liste"):
-        listes_disponibles = [fichier for fichier in os.listdir("liste") if fichier.endswith(".txt")]
-        if not listes_disponibles:
-            print("Aucune liste n'est disponible.")
-        else:
-            print("Listes disponibles :")
-            for liste in listes_disponibles:
-                nom_base, _ = os.path.splitext(liste)
-                print(nom_base)
-    else:
-        print("Le répertoire 'liste' n'existe pas.")
-
-class TestAffichageListe(unittest.TestCase):
-    def setUp(self):
-        # Rediriger la sortie standard pour capturer l'affichage
-        self.stdout_backup = sys.stdout
-        self.captured_output = StringIO()
-        sys.stdout = self.captured_output
 
 
 
@@ -101,6 +73,56 @@ class TestSupprimerListe(unittest.TestCase):
             with self.assertRaises(ValueError):
                 supprimer_liste(liste_inexistant)
 
+
+
+def modifier_liste(nom_liste, contenu):
+    if not os.path.exists("liste"):
+        os.mkdir("liste")
+
+    if not nom_liste:
+        raise ValueError("Le nom de la liste ne peut pas être vide ! ! ! ")
+
+    liste_path = os.path.join("liste", f"{nom_liste}.txt")
+
+    if not os.path.exists(liste_path):
+        raise ValueError(f"La liste '{nom_liste}' n'existe pas et ne peut pas être modifiée.")
+    
+    # Écrire le contenu dans le fichier
+    with open(liste_path, "w") as fichier_liste:
+        fichier_liste.write(contenu)
+
+    # Vérifier si le contenu a été écrit correctement
+    with open(liste_path, "r") as fichier_liste:
+        contenu_lu = fichier_liste.read()
+    
+    if contenu_lu == contenu:
+        print(f"Le contenu de la liste '{nom_liste}' a été modifié avec succès.")
+    else:
+        raise ValueError(f"Erreur : Le contenu de la liste '{nom_liste}' n'a pas été modifié correctement.")
+
+
+class TestModification(unittest.TestCase):
+    def test_modifier_liste(self):
+        # Créer un fichier de liste de test avec un contenu initial
+        nom_liste = "MaListeModif"
+        liste_path = os.path.join("liste", f"{nom_liste}.txt")
+        with open(liste_path, "w") as fichier_liste:
+            fichier_liste.write("ContenuInitial")
+
+        # Vérifier si le fichier existe
+        self.assertTrue(os.path.exists(liste_path))
+
+        with self.subTest(msg="Test de modification de contenu"):
+            contenu_a_ajouter = "ContenuModifie"
+            modifier_liste(nom_liste, contenu_a_ajouter)
+            with open(liste_path, "r") as fichier_liste:
+                contenu_lu = fichier_liste.read()
+            self.assertEqual(contenu_lu, contenu_a_ajouter)
+
+        with self.subTest(msg="Test de modification sur un fichier inexistant"):
+            liste_inexistante = "InexistanteListe"
+            with self.assertRaises(FileNotFoundError):
+                modifier_liste(liste_inexistante, "ContenuModifie")
 
 if __name__ == "__main__":
     unittest.main()
