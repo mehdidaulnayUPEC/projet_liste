@@ -208,7 +208,9 @@ if __name__ == "__main__":
     while True:
         affiche_menu()  # Afficher le menu
         choix = input("Choisissez une option : ").strip().upper()  # Obtenir la saisie de l'utilisateur et la convertir en majuscules
-        if choix == 'N':
+        if choix == 'M':
+         affiche_menu()
+        elif choix == 'N':
             creer_nouvelle_liste()  #Appeler la fonction pour créer une nouvelle liste
         elif choix == 'A':
             afficher_liste() # Appeler la fonction pour afficher une liste
